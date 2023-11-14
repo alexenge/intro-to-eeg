@@ -38,7 +38,7 @@ jobs:
 
       - name: Convert Python scripts to notebooks
         run: |
-          mkdir ipynb
+          mkdir -p ipynb
           jupytext --to ipynb py/*.py
           mv py/*.ipynb ipynb/
 
