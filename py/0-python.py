@@ -2,6 +2,7 @@
 # # 0. Intro to Python
 #
 # {{ badge }}
+# <br>
 #
 # In this course, we will us the Python programming language for analyzing EEG data.
 # Python as an open source programming language that is used in many areas of science and engineering.
