@@ -2,7 +2,7 @@
 # Learn more at https://jupyterbook.org/customize/toc.html
 
 format: jb-book
-root: index
+root: misc/index
 chapters:
   - file: ipynb/0-python
   - file: ipynb/1-preprocessing
