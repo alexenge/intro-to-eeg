@@ -8,6 +8,9 @@ on:
   # Trigger the workflow manually via the GitHub Actions page
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 env:
   BASE_URL: /${{ github.event.repository.name }}
 
@@ -25,7 +28,6 @@ jobs:
       pages: write
       id-token: write
     steps:
-
       - name: Checkout repository
         uses: actions/checkout@v3
 
