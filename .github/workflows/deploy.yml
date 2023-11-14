@@ -1,0 +1,64 @@
+name: deploy-book
+
+on:
+  # Trigger the workflow on push to main branch
+  push:
+    branches:
+      - main
+
+env:
+  BASE_URL: /${{ github.event.repository.name }}
+
+# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
+# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  deploy-book:
+    runs-on: ubuntu-latest
+    # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+    permissions:
+      pages: write
+      id-token: write
+    steps:
+
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.11
+
+      - name: Install Python packages
+        run: |
+          pip install -r requirements.txt
+
+      - name: Convert Python scripts to notebooks
+        run: |
+          mkdir ipynb
+          jupytext --to ipynb py/*.py
+          mv py/*.ipynb ipynb/
+
+      - name: Commit notebooks to git
+        uses: EndBug/add-and-commit@v9
+        with:
+          add: "ipynb/*.ipynb"
+          author_name: "GitHub Actions"
+          author_email: "alexander.enge@hu-berlin.de"
+          message: "Auto-convert scripts to notebooks"
+
+      - name: Build the book
+        run: |
+          jupyter-book build .
+
+      - name: Upload book's HTML as an artifact
+        uses: actions/upload-pages-artifact@v2
+        with:
+          path: "_build/html"
+
+      - name: Deploy book's HTML to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v2

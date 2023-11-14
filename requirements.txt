@@ -1,0 +1,4 @@
+hu-neuro-pipeline
+jupyter-book
+jupytext
+mne
