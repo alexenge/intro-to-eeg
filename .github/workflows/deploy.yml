@@ -8,9 +8,6 @@ on:
   # Trigger the workflow manually via the GitHub Actions page
   workflow_dispatch:
 
-permissions:
-  contents: write
-
 env:
   BASE_URL: /${{ github.event.repository.name }}
 
@@ -25,6 +22,7 @@ jobs:
     runs-on: ubuntu-latest
     # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
     permissions:
+      contents: write
       pages: write
       id-token: write
     steps:
