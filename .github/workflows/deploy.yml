@@ -46,13 +46,11 @@ jobs:
           jupytext --to ipynb py/*.py
           mv py/*.ipynb ipynb/
 
-      - name: Commit notebooks to git
-        uses: EndBug/add-and-commit@v9
+      - name: Commit and push notebooks to GitHub
+        uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          add: "ipynb/*.ipynb"
-          author_name: "GitHub Actions"
-          author_email: "alexander.enge@hu-berlin.de"
-          message: "Auto-convert scripts to notebooks"
+          commit_message: "Auto-convert scripts to notebooks"
+          file_pattern: "ipynb/*.ipynb"
 
       - name: Build the book
         run: |
