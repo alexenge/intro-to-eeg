@@ -44,6 +44,9 @@ jobs:
           jupytext --to ipynb py/*.py
           mv py/*.ipynb ipynb/
 
+      - name: Add/update Colab badges
+        uses: trsvchn/colab-badge-action@v4
+
       - name: Commit and push notebooks to GitHub
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
