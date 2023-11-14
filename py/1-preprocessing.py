@@ -31,7 +31,7 @@ from pipeline.datasets import get_erpcore
 # This dataset contains EEG data from 40 participants who completed 6 different experiments.
 # Each experiment was designed to elicit one or two commonly studied ERP components.
 #
-# <img src="https://ars.els-cdn.com/content/image/1-s2.0-S1053811920309502-gr1.jpg" width="500">
+# <img src="https://ars.els-cdn.com/content/image/1-s2.0-S1053811920309502-gr1.jpg" width="500" class="center">
 # <br>
 # <br>
 #
