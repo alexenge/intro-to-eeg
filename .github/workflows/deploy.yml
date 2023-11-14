@@ -5,6 +5,8 @@ on:
   push:
     branches:
       - main
+  # Trigger the workflow manually via the GitHub Actions page
+  workflow_dispatch:
 
 env:
   BASE_URL: /${{ github.event.repository.name }}
