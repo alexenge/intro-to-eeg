@@ -5,4 +5,6 @@ all:
 	mkdir -p ipynb
 	jupytext --to ipynb py/*.py
 	mv py/*.ipynb ipynb/
-	jupyter-book build . --all
+ifneq (, $(shell command -v git 2>/dev/null))
+	git checkout -- ipynb/*.ipynb
+endif
