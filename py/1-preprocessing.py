@@ -2,7 +2,7 @@
 # # 1. Preprocessing
 #
 # {{ badge }}
-# <br>
+# <br><br>
 #
 # Here we will:
 # * Load raw EEG data from a single participant
@@ -33,8 +33,7 @@ from pipeline.datasets import get_erpcore
 # Each experiment was designed to elicit one or two commonly studied ERP components.
 #
 # <img src="https://ars.els-cdn.com/content/image/1-s2.0-S1053811920309502-gr1.jpg" width="500">
-# <br>
-# <br>
+# <br><br>
 #
 # In this example, we'll use the data from one participant from the face percpetion (N170) experiment.
 #
