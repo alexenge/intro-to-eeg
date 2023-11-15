@@ -1,8 +1,8 @@
 # %% [markdown]
-# # 0. Intro to Python
+# # 0. Python
 #
 # {{ badge }}
-# <br><br>
+# <br>
 #
 # In this course, we will us the Python programming language for analyzing EEG data.
 # Python as an open source programming language that is used in many areas of science and engineering.
@@ -51,13 +51,11 @@
 # Comments (starting with '#') are ignored by Python
 
 # %% [markdown]
+# ## 0.2 Variables
 #
 # **Variables** are used to store values for later use.
 # They are defined by assigning a value (right hand side) to a custom variable name (left hand side), with an equals sign (``=``) in between.
 # We can print the value of a variable by simply typing its name (or, alternatively, by using the ``print()`` function).
-#
-# %% [markdown]
-# ## 0.2 Variables
 #
 # %%
 a = 3

@@ -2,7 +2,7 @@
 # # 1. Preprocessing
 #
 # {{ badge }}
-# <br><br>
+# <br>
 #
 # Here we will:
 # * Load raw EEG data from a single participant
@@ -15,9 +15,15 @@
 # ## 1.1. Load Python modules
 #
 # We will use the following Python modules:
-# * [MNE](https://mne.tools/stable/index.html) for EEG data analysis
+# * [MNE](https://mne.tools/stable/index.html) for EEG data analysis {cite:p}`gramfort2013`
 # * [hu-neuro-pipeline](https://github.com/alexenge/hu-neuro-pipeline) for downloading example data
 #
+# Note that on Google Colab, you will need to install these modules first.
+# You can uncomment and run the following cell to do so.
+#
+# %%
+# # %pip install mne hu-neuro-pipeline
+
 # %%
 from mne import set_bipolar_reference
 from mne.io import read_raw
@@ -28,7 +34,7 @@ from pipeline.datasets import get_erpcore
 # %% [markdown]
 # ## 1.2 Download example data
 #
-# We'll use data from the ERP CORE dataset ([Kappenman et al., 2021](https://doi.org/10.1016/j.neuroimage.2020.117465)).
+# We'll use data from the ERP CORE dataset {cite:p}`kappenman2021`.
 # This dataset contains EEG data from 40 participants who completed 6 different experiments.
 # Each experiment was designed to elicit one or two commonly studied ERP components.
 #
@@ -153,3 +159,27 @@ _ = raw.plot(start=60.0, duration=5.0)
 # %%
 raw = raw.set_eeg_reference('average')
 _ = raw.plot(start=60.0, duration=5.0)
+
+# %% [markdown]
+# ## Exercises
+#
+# 1. Re-run the above analysis for a different experiment.
+#    For this, you can simply reuse the code cells above, changing only the second cell.
+#    Valid experiment names are `'N170'`, `'MMN'`, `'N2pc'`, `'N400'`, `'P3'`, or `'ERN'`.
+# 2. Below, try out the effect of different filter settings such as a higher high-pass cutoff or a lower low-pass cutoff.
+#    For this, write your own code that achieves the following:
+#    (a) read the raw data from one participant,
+#    (b) apply your own custom high-pass, low-pass, or band-pass filter,
+#    (c) plot the filtered data, and
+#    (d) repeat for different filter settings.
+#
+# %%  tags=["skip-execution"]
+# Your code goes here
+...
+
+# %% [markdown]
+# ## References
+#
+# ```{bibliography}
+# ```
+#
