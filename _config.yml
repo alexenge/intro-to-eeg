@@ -1,8 +1,9 @@
 # Book settings
 # Learn more at https://jupyterbook.org/customize/config.html
 
-title: Introduction to EEG analysis
-author: Alexander Enge
+title: "Introduction to EEG analysis"
+author: "Alexander Enge"
+copyright: "2023"
 logo: misc/logo.png
 
 # Force re-execution of notebooks on each build.
@@ -33,8 +34,8 @@ launch_buttons:
 # See https://jupyterbook.org/customize/config.html#add-a-link-to-your-repository
 html:
   favicon: misc/favicon.png
-  use_issues_button: true
   use_repository_button: true
+  use_issues_button: true
 
 sphinx:
   extra_extensions:
@@ -42,8 +43,8 @@ sphinx:
   config:
     bibtex_reference_style: apastyle
     bibtex_default_style: apa
+    nb_merge_streams: true
     # nb_custom_formats:
     #   .py:
     #     - jupytext.reads
     #     - fmt: py:percent
-    nb_merge_streams: true
