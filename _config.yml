@@ -37,7 +37,11 @@ html:
   use_repository_button: true
 
 sphinx:
+  extra_extensions:
+    - sphinxcontrib.apa
   config:
+    bibtex_reference_style: apastyle
+    bibtex_default_style: apa
     # nb_custom_formats:
     #   .py:
     #     - jupytext.reads

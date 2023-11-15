@@ -2,3 +2,5 @@ git+https://github.com/alexenge/hu-neuro-pipeline.git@deb423f
 jupyter-book
 jupytext
 mne
+pybtex-apa-style
+sphinxcontrib-apa
