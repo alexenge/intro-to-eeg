@@ -1,9 +1,6 @@
 # %% [markdown]
 # # 1. Preprocessing
 #
-# {{ badge }}
-# <br>
-#
 # Here we will:
 # * Load raw EEG data from a single participant
 # * Plot the raw data

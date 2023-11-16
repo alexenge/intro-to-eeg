@@ -1,9 +1,6 @@
 # %% [markdown]
 # # 0. Python
 #
-# {{ badge }}
-# <br>
-#
 # In this course, we will us the Python programming language for analyzing EEG data.
 # Python as an open source programming language that is used in many areas of science and engineering.
 # It is very similar to the [R language](https://www.r-project.org) that you might know from your statistics classes, but slightly more general and more widely used outside of psychology.
