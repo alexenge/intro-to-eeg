@@ -1,18 +1,20 @@
 # %% [markdown]
 # # 0. Python
 #
-# In this course, we will us the Python programming language for analyzing EEG data.
-# Python as an open source programming language that is used in many areas of science and engineering.
-# It is very similar to the [R language](https://www.r-project.org) that you might know from your statistics classes, but slightly more general and more widely used outside of psychology.
+# In this course, we will us the **[Python](https://www.python.org) programming language**.
+# Python as an open source language that is used in many areas of science and engineering.
+# It is very similar to the [R](https://www.r-project.org) language that you might know from your statistics classes, but slightly more general and more widely used outside of psychology.
 # This first section of the course will provide a very brief introduction into the Python language.
 #
-# In this section we will:
+# ```{admonition} Learning goals
+# :class: note
 # - Use Python as a calculator
 # - Define variables
 # - Meet different data types
 # - Run loops
 # - Run functions
 # - Load modules
+# ```
 #
 # %% [markdown]
 # ## 0.1 Calculations
@@ -261,9 +263,9 @@ power(2, exponent=3)
 # As an example, we will install the ``numpy`` module for working with numerical data.
 #
 # %%
-# %pip install numpy
+# # %pip install numpy
 
-# %%
+# %% [markdown]
 # We can now import the module and use its functions:
 #
 # %%
@@ -292,12 +294,15 @@ from numpy import mean
 mean(numbers)
 
 # %% [markdown]
-# Numpy can also be used to create arrays, which are similar to lists but with two important differences:
+# Numpy can also be used to create **arrays**, which are similar to lists but with two important differences:
 # - Arrays can only contain elements of the same type (e.g., only floats)
 # - Arrays can be multi-dimensional (e.g., a 2D matrix with two rows and three columns)
 
 # %%
 my_array = np.array([[1, 2, 3], [4, 5, 6]])
+my_array
+
+# %%
 np.mean(my_array)
 
 # %%

@@ -1,12 +1,18 @@
 # %% [markdown]
 # # 1. Preprocessing
 #
-# Here we will:
+# **Preprocessing** is the first step in EEG data analysis.
+# It usually involves a series of steps aimed at removing non-brain-related noise and artifacts from the data.
+# Unlike the following steps (e.g., epoching and averaging), it leaves the data in a continuous format (EEG channels × timepoints).
+#
+# ```{admonition} Learning goals
+# :class: note
 # * Load raw EEG data from a single participant
 # * Plot the raw data
 # * Filter the data to remove low and high frequency noise
 # * Correct eye artifacts using independent component analysis (ICA)
 # * Re-reference the data to the average of all electrodes
+# ```
 #
 # %% [markdown]
 # ## 1.1. Load Python modules
