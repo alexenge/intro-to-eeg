@@ -1,3 +1,4 @@
+docutils==0.17.1
 git+https://github.com/alexenge/hu-neuro-pipeline.git@deb423f
 jupyter-book
 jupytext
