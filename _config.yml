@@ -36,6 +36,11 @@ html:
   favicon: misc/favicon.png
   use_repository_button: true
   use_issues_button: true
+  extra_footer: |
+    <p>
+    © Copyright 2023 under a <a href="https://creativecommons.org/licenses/by/4.0/">
+    Creative Commons Attribution 4.0 License</a>
+    </p>
 
 # Sphinx options
 sphinx:
@@ -45,6 +50,7 @@ sphinx:
     bibtex_reference_style: apastyle
     bibtex_default_style: apa
     nb_merge_streams: true
+    html_show_copyright: false
     # nb_custom_formats:
     #   .py:
     #     - jupytext.reads
