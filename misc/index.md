@@ -2,6 +2,7 @@
 
 [![Python](https://img.shields.io/badge/🐍-Python-blue)](<https://www.python.org/>)
 [![Jupyter Book Badge](https://jupyterbook.org/badge.svg)](<https://alexenge.github.io/intro-to-eeg/>)
+[![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/alexenge/intro-to-eeg/deploy.yml)](https://github.com/alexenge/intro-to-eeg/actions/workflows/deploy.yml)
 [![License: CC BY 4.0](https://img.shields.io/badge/License-CC_BY_4.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
 
 This course provides a very brief introduction into analyzing electroencephalography (EEG) data.
