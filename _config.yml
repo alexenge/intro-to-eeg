@@ -37,6 +37,7 @@ html:
   use_repository_button: true
   use_issues_button: true
 
+# Sphinx options
 sphinx:
   extra_extensions:
     - sphinxcontrib.apa
@@ -48,3 +49,5 @@ sphinx:
     #   .py:
     #     - jupytext.reads
     #     - fmt: py:percent
+
+exclude_patterns: [CONDUCT.md, CONTRIBUTING.md, LICENSE.md, README.md]
