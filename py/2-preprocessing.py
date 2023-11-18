@@ -1,5 +1,5 @@
 # %% [markdown]
-# # 1. Preprocessing
+# # Preprocessing
 #
 # **Preprocessing** is the first step in EEG data analysis.
 # It usually involves a series of steps aimed at removing non-brain-related noise and artifacts from the data.
@@ -15,7 +15,7 @@
 # ```
 #
 # %% [markdown]
-# ## 1.1. Load Python modules
+# ## Load Python modules
 #
 # We will use the following Python modules:
 # * [MNE](https://mne.tools/stable/index.html) for EEG data analysis {cite:p}`gramfort2013`
@@ -35,7 +35,7 @@ from mne.viz import set_browser_backend
 from pipeline.datasets import get_erpcore
 
 # %% [markdown]
-# ## 1.2 Download example data
+# ## Download example data
 #
 # We'll use data from the ERP CORE dataset {cite:p}`kappenman2021`.
 # This dataset contains EEG data from 40 participants who completed 6 different experiments.
@@ -51,7 +51,7 @@ files_dict = get_erpcore('N170', participants='sub-004')
 files_dict
 
 # %% [markdown]
-# ## 1.3 Load raw data
+# ## Load raw data
 #
 # We read the actual EEG data files (`eeg.set`/`eeg.fdt`) into MNE-Python.
 # The result is a `Raw` object, which contains the continuous EEG data and some metadata.
@@ -70,7 +70,7 @@ raw
 raw.get_data().shape
 
 # %% [markdown]
-# ## 1.4. Plot raw data
+# ## Plot raw data
 #
 # We can plot the raw data using the `plot()` method.
 # In notebook-like environments (such as Google Colab), we need to use the `'matplotlib'` backend, which will create a static image.
@@ -84,7 +84,7 @@ set_browser_backend('matplotlib')
 _ = raw.plot(start=60.0, duration=5.0)
 
 # %% [markdown]
-# ## 1.5 Add channel information
+# ## Add channel information
 #
 # %%
 raw = set_bipolar_reference(raw, anode='FP1', cathode='VEOG_lower',
@@ -98,7 +98,7 @@ raw = raw.drop_channels(['VEOG_lower', 'HEOG_right', 'HEOG_left'])
 raw = raw.set_montage('biosemi64', match_case=False)
 
 # %% [markdown]
-# ## 1.6 Filter data
+# ## Filter data
 #
 # Filtering is a common preprocessing step that is used to remove parts of the EEG signal that are unlikely to contain brain activity of interest.
 # There are four different types of filters:
@@ -125,7 +125,7 @@ raw = raw.filter(l_freq=None, h_freq=30.0)
 _ = raw.plot(start=60.0, duration=5.0)
 
 # %% [markdown]
-# ## 1.7 Correct eye artifacts
+# ## Correct eye artifacts
 #
 # Eye blinks and eye movements are the most prominent source of artifacts in EEG data.
 # They are approximately 10 times larger than the brain signals we are interested in and affect especially the frontal electrodes.
@@ -157,7 +157,7 @@ raw = ica.apply(raw)
 _ = raw.plot(start=60.0, duration=5.0)
 
 # %% [markdown]
-# ## 1.8 Re-reference data
+# ## Re-reference data
 #
 # %%
 raw = raw.set_eeg_reference('average')

@@ -3,6 +3,9 @@
 
 format: jb-book
 root: misc/index
-chapters:
-  - file: ipynb/0-python
-  - file: ipynb/1-preprocessing
+parts:
+  - caption: Course content
+    numbered: True
+    chapters:
+      - file: ipynb/1-python
+      - file: ipynb/2-preprocessing

@@ -1,5 +1,5 @@
 # %% [markdown]
-# # 0. Python
+# # Python
 #
 # In this course, we will us the **[Python](https://www.python.org) programming language**.
 # Python as an open source language that is used in many areas of science and engineering.
@@ -17,7 +17,7 @@
 # ```
 #
 # %% [markdown]
-# ## 0.1 Calculations
+# ## Calculations
 #
 # Like most programming languages, Python can perform basic arithmetic operations like addition, subtraction, multiplication, and division.
 #
@@ -50,7 +50,7 @@
 # Comments (starting with '#') are ignored by Python
 
 # %% [markdown]
-# ## 0.2 Variables
+# ## Variables
 #
 # **Variables** are used to store values for later use.
 # They are defined by assigning a value (right hand side) to a custom variable name (left hand side), with an equals sign (``=``) in between.
@@ -78,13 +78,13 @@ a = 5
 b
 
 # %% [markdown]
-# ## 0.3 Data types
+# ## Data types
 #
 # So far, we have only used single numbers, but Python also supports many other types of data.
 # An important distinction is between **scalars** (single values, such as a single number) and **iterables** (collections of values, such as a list of numbers).
 #
 # %% [markdown]
-# ### 0.3.1 Scalars
+# ### Scalars
 #
 # %% [markdown]
 # An **integer** (``int``) is a whole number (positive or negative).
@@ -126,7 +126,7 @@ my_var = None
 type(my_var)
 
 # %% [markdown]
-# ### 0.3.2 Iterables
+# ### Iterables
 #
 # %% [markdown]
 #
@@ -181,7 +181,7 @@ type(my_var)
 my_var['First_name']
 
 # %% [markdown]
-# ## 0.4 Loops
+# ## Loops
 #
 # Loops are used to repeat a certain operation multiple times.
 # The most common type of loop is a **for loop**, which iterates over the elements of an iterable (such as a list).
@@ -206,7 +206,7 @@ for name in names:
 greetings
 
 # %% [markdown]
-# ## 0.5 Functions
+# ## Functions
 #
 # Functions are pre-defined operations that can be applied to some input data.
 # Functions are called by writing their name, followed by round brackets containing the input arguments.
@@ -254,7 +254,7 @@ def power(base, exponent):
 power(2, exponent=3)
 
 # %% [markdown]
-# ## 0.6 Modules
+# ## Modules
 #
 # Python only comes with a limited set of built-in functions like ``sum()`` and ``len()``.
 # Many additional functions are provided by external **modules** (also called **packages**).
