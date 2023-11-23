@@ -19,7 +19,7 @@
 # ## Load Python modules
 #
 # We will use the following Python modules:
-# * [MNE](https://mne.tools/stable/index.html) for EEG data analysis {cite:p}`gramfort2013`
+# * [MNE-Python](https://mne.tools/stable/index.html) for EEG data analysis {cite:p}`gramfort2013`
 # * [hu-neuro-pipeline](https://github.com/alexenge/hu-neuro-pipeline) for downloading example data
 #
 # Note that on Google Colab, you will need to install these modules first.
@@ -207,9 +207,9 @@ _ = raw.plot(start=60.0, duration=5.0)
 # %% [markdown]
 # ## Further reading
 #
-# * [Tutorials on preprocessing](https://mne.tools/stable/auto_tutorials/preprocessing/index.html) on the MNE-Python website
-# * [*Pitfalls of filtering the EEG signal*](https://sapienlabs.org/lab-talk/pitfalls-of-filtering-the-eeg-signal/) by Narayan P. Subramaniyam
-# * *EEG is better left alone* {cite:p}`delorme2023`
+# * Tutorials on preprocessing on the [MNE-Python website](https://mne.tools/stable/auto_tutorials/preprocessing/index.html)
+# * Blog post on [*Pitfalls of filtering the EEG signal*](https://sapienlabs.org/lab-talk/pitfalls-of-filtering-the-eeg-signal/) by Narayan P. Subramaniyam
+# * Paper *EEG is better left alone* {cite:p}`delorme2023`
 #
 # %% [markdown]
 # ## References

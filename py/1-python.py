@@ -4,6 +4,7 @@
 # In this course, we will us the **[Python](https://www.python.org) programming language**.
 # Python as an open source language that is used in many areas of science and engineering.
 # It is very similar to the [R](https://www.r-project.org) language that you might know from your statistics classes, but slightly more general and more widely used outside of psychology.
+#
 # This first section of the course will provide a very brief introduction into the Python language.
 #
 # ```{admonition} Learning goals
@@ -28,9 +29,6 @@
 # %%
 10 / 4
 
-# %%
-2 ** 4
-
 # %% [markdown]
 # Using the hash sign (``#``), we can add comments to our code to add notes for ourselves or others.
 #
@@ -41,7 +39,7 @@
 # ## Variables
 #
 # **Variables** are used to store values for later use.
-# They are defined by assigning a value (right hand side) to a custom variable name (left hand side), with an equals sign (``=``) in between (not an arrow [``<-``], as in R).
+# They are defined by assigning a value (right hand side) to a custom variable name (left hand side), with an equals sign (``=``) in between (not an ``<-``, as in R).
 # We can print the value of a variable by simply typing its name (or, alternatively, by using the ``print()`` function).
 #
 # %%
@@ -111,7 +109,7 @@ type(my_var)
 # Elements of a list can be accessed via their index (starting at ``0``, unlike R or MATLAB) in square brackets.
 #
 # %%
-my_var[1]
+my_var[0]
 
 # %% [markdown]
 # This can also be used to change the value of an element.
@@ -130,7 +128,7 @@ my_var = (1, 2, 3)
 type(my_var)
 
 # %%
-my_var[1]
+my_var[0]
 
 
 # %% tags=["raises-exception"]
@@ -191,14 +189,6 @@ sum(numbers)
 len(numbers)
 
 # %% [markdown]
-# Some types of objects come with their own special functions built in (called **methods**).
-# These are called via the object name, followed by a dot, the name of the method, and round brackets (optionally containing additional input arguments).
-
-# %%
-my_string = 'Hello world'
-my_string.upper()
-
-# %% [markdown]
 # We can also define our own custom functions like this:
 #
 # %%
@@ -226,6 +216,14 @@ def power(base, exponent):
 
 
 power(2, exponent=3)
+
+# %% [markdown]
+# Some types of objects come with their own special functions built in (called **methods**).
+# These are called via the object name, followed by a dot, the name of the method, and round brackets (optionally containing additional input arguments).
+
+# %%
+my_string = 'Hello world'
+my_string.upper()
 
 # %% [markdown]
 # ## Modules
@@ -279,13 +277,13 @@ my_array
 # Numpy arrays come with many useful methods, such as taking the mean across the entire array or across specific dimensions.
 #
 # %%
-np.mean(my_array)
+np.mean(my_array)  # Mean of all elements
 
 # %%
-np.mean(my_array, axis=0)
+np.mean(my_array, axis=0)  # Means of each column
 
 # %%
-np.mean(my_array, axis=1)
+np.mean(my_array, axis=1)  # Means of each row
 
 # %% [markdown]
 # ## Further reading
