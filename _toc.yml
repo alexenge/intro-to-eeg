@@ -9,3 +9,4 @@ parts:
     chapters:
       - file: ipynb/1-python
       - file: ipynb/2-preprocessing
+      - file: ipynb/3-epoching
