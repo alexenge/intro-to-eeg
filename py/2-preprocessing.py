@@ -81,14 +81,10 @@ raw.get_data().shape
 # ## Plot raw data
 #
 # We can plot the raw data using the `plot()` method.
-# In notebook-like environments (such as Google Colab), we need to use the `'matplotlib'` backend, which will create a static image.
-# On a local machine, we could use the default `'browser'` backend, which will create an interactive plot in a new window.
-#
 # We specify which time segment of the data to plot using the `start` and `duration` arguments.
 # Here we plot 5 seconds of data, starting at 60 seconds.
 #
 # %%
-set_browser_backend('matplotlib')
 _ = raw.plot(start=60.0, duration=5.0)
 
 # %% [markdown]
