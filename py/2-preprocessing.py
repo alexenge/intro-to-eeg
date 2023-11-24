@@ -42,8 +42,12 @@ from pipeline.datasets import get_erpcore
 # This dataset contains EEG data from 40 participants and 6 different experiments.
 # Each experiment was designed to elicit one or two commonly studied ERP components.
 #
+# :::{figure-md}
 # <img src="https://ars.els-cdn.com/content/image/1-s2.0-S1053811920309502-gr1.jpg" width="500">
-# <br><br>
+#
+# The six different ERP CORE experiments.
+# Source: {cite:t}`kappenman2021`
+# :::
 #
 # In this example, we'll use the data from the fourth participant in the face perception (N170) experiment.
 #
@@ -216,5 +220,6 @@ _ = raw.plot(start=60.0, duration=5.0)
 # ## References
 #
 # ```{bibliography}
+# :filter: docname in docnames
 # ```
 #

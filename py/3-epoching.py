@@ -7,6 +7,13 @@
 # The events are usually stored in the EEG data as "triggers" (also "markers" or "annotations"), that is, numerical codes at certain timepoints that indicate the onset of an event.
 # We can use them to "cut" the continuous EEG recording into smaller segments (called **epochs**) that begin a few hundred milliseconds before the event (to have a neutral "baseline" period) and end a few hundred milliseconds after the event (capturing the event-related brain activity).
 #
+# :::{figure-md}
+# <img src="https://files.mtstatic.com/site_7339/94057/0?Expires=1700853581&Signature=UeBaEMEJOBCxd9GX-iXbaSsW6XPM4iX2uABmaWUjOB1~qIaRQf-m4158~2wbQeVqmaaLPnX6o04fkunrzmP88Gr-zGgPhrMBes0MEkLXLy7B43XgdPwUPpO3tUVhOjvHrAuQthoD9lv9b2IYJNsFZ1hcLWeW4ZsezFs7~iSTMFM_&Key-Pair-Id=APKAJ5Y6AV4GI7A555NA" alt="Continuous, epoched, and averaged EEG" width=500>
+#
+# Continuous, epoched, and averaged EEG.
+# Source: {cite:t}`luck2022a`
+# :::
+#
 # ```{admonition} Learning goals
 # :class: note
 #
@@ -23,6 +30,9 @@
 # We repeat the preprocessing steps from the previous chapter in condensed form (without any intermediate plots).
 # This gives us the cleaned, continuous EEG data as a `Raw` object.
 #
+# %%
+# # %pip install mne hu-neuro-pipeline
+
 # %% tags=["hide-input", "hide-output"]
 from mne import set_bipolar_reference
 from mne.io import read_raw
@@ -177,4 +187,11 @@ _ = epochs.plot_image(picks='PO8')
 #
 # * Chapter [*Segmentation into ERP epochs*](https://neuraldatascience.io/7-eeg/erp_segmentation.html) in *Neural Data Science in Python* by Aaron J. Newman et al. (2020--2023)
 # * Tutorial on epochs on the [MNE-Python website](https://mne.tools/stable/auto_tutorials/epochs/10_epochs_overview.html)
+#
+# %% [markdown]
+# ## References
+#
+# ```{bibliography}
+# :filter: docname in docnames
+# ```
 #
