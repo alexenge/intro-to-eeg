@@ -48,7 +48,7 @@ from pipeline.datasets import get_erpcore
 # In this example, we'll use the data from the fourth participant in the face perception (N170) experiment.
 #
 # %%
-files_dict = get_erpcore('N170', participants='sub-004')
+files_dict = get_erpcore('N170', participants='sub-004', path='data')
 files_dict
 
 # %% [markdown]
