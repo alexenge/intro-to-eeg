@@ -9,7 +9,7 @@
 # :class: note
 #
 # * Loading raw EEG data
-# * Ploting the raw data
+# * Plotting the raw data
 # * Filtering the data to remove low and high frequency noise
 # * Correcting eye artifacts using independent component analysis (ICA)
 # * Re-referencing the data to an average reference
@@ -45,7 +45,7 @@ from pipeline.datasets import get_erpcore
 # <img src="https://ars.els-cdn.com/content/image/1-s2.0-S1053811920309502-gr1.jpg" width="500">
 # <br><br>
 #
-# In this example, we'll use the data from the fourth participant in the face percpetion (N170) experiment.
+# In this example, we'll use the data from the fourth participant in the face perception (N170) experiment.
 #
 # %%
 files_dict = get_erpcore('N170', participants='sub-004')
@@ -64,6 +64,11 @@ raw
 
 # %% [markdown]
 # We can access the actual data array (a Numpy array) using the `get_data()` method.
+#
+# %%
+raw.get_data()
+
+# %% [markdown]
 # Let's check the size (number of dimensions and their length) of this array:
 #
 # %%
@@ -79,7 +84,7 @@ raw.get_data().shape
 # In notebook-like environments (such as Google Colab), we need to use the `'matplotlib'` backend, which will create a static image.
 # On a local machine, we could use the default `'browser'` backend, which will create an interactive plot in a new window.
 #
-# We specifiy which time segment of the data to plot using the `start` and `duration` arguments.
+# We specify which time segment of the data to plot using the `start` and `duration` arguments.
 # Here we plot 5 seconds of data, starting at 60 seconds.
 #
 # %%
@@ -181,7 +186,7 @@ _ = raw.plot(start=60.0, duration=5.0)
 # **Re-referencing** is our final preprocessing step.
 # Since the EEG signal is measured as the difference in voltage between two electrodes, the signal at any given electrode depends strongly on the "online" reference electrode (typically placed on the mastoid bone behind the ear or on the forehead).
 #
-# During preprocessing ("offline"), we typically want to-rereference the data to a more neutral (and less noisy) reference, such as the average of all channels.
+# During preprocessing ("offline"), we typically want to re-reference the data to a more neutral (and less noisy) reference, such as the average of all channels.
 #
 # %%
 raw = raw.set_eeg_reference('average')
