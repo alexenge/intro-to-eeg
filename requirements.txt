@@ -2,6 +2,6 @@ docutils==0.17.1
 hu-neuro-pipeline
 jupyter-book
 jupytext
-mne==1.5.0
+mne
 pybtex-apa-style
 sphinxcontrib-apa
