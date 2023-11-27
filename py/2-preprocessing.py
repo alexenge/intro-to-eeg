@@ -152,8 +152,8 @@ _ = raw.plot(start=60.0, duration=5.0)
 # The most common one is a machine learning technique called **independent component analysis (ICA)**.
 # ICA decomposes the EEG data into a set of independent components, each of which represents a different source of EEG activity.
 #
-# Each component is characterized by a topography (i.e., a spatial pattern of activity across electrodes) and a time course (i.e., a pattern of activity over time).
-# We can then identify those components that we think reflect eye artifacts, and remove them from the data.
+# Each component is characterized by a *topography* (i.e., a spatial pattern of activity across electrodes) and a *time course* (i.e., a pattern of activity over time).
+# We can use these to identify components that we think reflect eye artifacts, and remove them from the data.
 #
 # ICA is typically computed based on a high-pass filtered copy of the data (cutoff = 1 Hz).
 # We ask the algorithm to identify 15 components and plot their scalp topographies.
@@ -165,7 +165,7 @@ ica = ica.fit(raw_copy)
 _ = ica.plot_components()
 
 # %% [markdown]
-# Then we can use a clever method that automatically identifies components that a likely to reflect eye artifacts (based on the correlation of the component's time course with our two VEOG and HEOG channels).
+# Then we can use a clever method that automatically identifies components that are likely to reflect eye artifacts (based on the correlation of the component's time course with our two VEOG and HEOG channels).
 #
 # %%
 eog_indices, eog_scores = ica.find_bads_eog(raw, ch_name=['HEOG', 'VEOG'],

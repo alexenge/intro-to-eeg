@@ -266,7 +266,7 @@ mean(numbers)
 
 # %% [markdown]
 # Numpy can also be used to create **arrays**, which are similar to lists but with two important differences:
-# - Arrays can only contain elements of the same type (e.g., only floats)
+# - Arrays can only contain elements of the same type (e.g., only integers)
 # - Arrays can be multi-dimensional (e.g., a 2D matrix with two rows and three columns)
 #
 # %%
