@@ -16,10 +16,15 @@ While prior programming experience is useful to follow the course materials, no 
 ```{tableofcontents}
 ```
 
-## How to follow along
+## How to
 
 |                            |                                                                                                                                                                                                                                                                                                |
 | -------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | 🌍 **Online** (recommended) | At the top of each chapter, hit the "Interactive" button (🚀) and "Colab" to open an interactive notebook in your browser. This allows you to run and/or modify the code without having to install anything. You can also save your changes to your own Google Drive.                           |
 | 💻 **Offline**              | [Download the course materials from GitHub](https://github.com/alexenge/intro-to-eeg/archive/refs/heads/main.zip), unzip them, and open them in a local Python IDE. This is a more advanced option, as it requires you to setup your own Python environment and install the required packages. |
 | 💤 **Static**               | Browse through the non-interactive version of the notebooks as listed above and in the left sidebar.                                                                                                                                                                                           |
+
+## Feedback
+
+If you encounter any typos, factual errors, or problems when running the code, or if you would like to contribute additional content, please [open an issue on GitHub](https://github.com/alexenge/intro-to-eeg/issues).
+Thanks!
