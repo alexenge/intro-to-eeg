@@ -1,3 +1,6 @@
 /.vscode/
 /_build/
-data/
+/ipynb/data/
+/ipynb/output/
+/py/data/
+/py/output/

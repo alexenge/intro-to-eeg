@@ -10,3 +10,4 @@ parts:
       - file: ipynb/1-python
       - file: ipynb/2-preprocessing
       - file: ipynb/3-epoching
+      - file: ipynb/4-averaging
