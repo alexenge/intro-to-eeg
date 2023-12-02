@@ -4,8 +4,9 @@
 # We are typically not interested in the full continuous EEG recording, but only in the EEG activity that happens around certain **events** of interest.
 # Such events could be the onset of a stimulus or the onset of a response.
 #
-# The events are usually stored in the EEG data as "triggers" (also "markers" or "annotations"), that is, numerical codes at certain timepoints that indicate the onset of an event.
-# We can use them to "cut" the continuous EEG recording into smaller segments (called **epochs**) that begin a few hundred milliseconds before the event (to have a neutral "baseline" period) and end a few hundred milliseconds after the event (capturing the event-related brain activity).
+# The events are usually stored in the EEG data as "triggers" (also called "markers" or "annotations").
+# These are numerical codes at certain timepoints that indicate the onset of an event.
+# We can use them to "cut" the continuous EEG recording into smaller segments (called **epochs**) that begin a few hundred milliseconds before the event (to have a neutral "baseline" period) and end a few hundred milliseconds after the event (to capture brain activity related to the event).
 #
 # :::{figure-md}
 # <img src="https://files.mtstatic.com/site_7339/94057/0?Expires=1700853581&Signature=UeBaEMEJOBCxd9GX-iXbaSsW6XPM4iX2uABmaWUjOB1~qIaRQf-m4158~2wbQeVqmaaLPnX6o04fkunrzmP88Gr-zGgPhrMBes0MEkLXLy7B43XgdPwUPpO3tUVhOjvHrAuQthoD9lv9b2IYJNsFZ1hcLWeW4ZsezFs7~iSTMFM_&Key-Pair-Id=APKAJ5Y6AV4GI7A555NA" alt="Continuous, epoched, and averaged EEG" width=500>
@@ -25,20 +26,26 @@
 # ```
 #
 # %% [markdown]
-# ## Recreate preprocessing
+# ## Load Python modules
 #
-# We repeat the preprocessing steps from the previous chapter in condensed form (without any intermediate plots).
-# This gives us the cleaned, continuous EEG data as a `Raw` object.
+# As before, we'll make extensive use of the [MNE-Python](https://mne.tools/stable/index.html) package{cite:p}`gramfort2013`.
 #
 # %%
 # # %pip install mne hu-neuro-pipeline
 
-# %% tags=["hide-input", "hide-output"]
-from mne import set_bipolar_reference
+# %%
+from mne import (Epochs, events_from_annotations, merge_events,
+                 set_bipolar_reference)
 from mne.io import read_raw
 from mne.preprocessing import ICA
 from pipeline.datasets import get_erpcore
 
+# %% [markdown]
+# ## Recreate preprocessing
+#
+# We repeat the preprocessing steps from the previous chapter in condensed form (without any intermediate plots).
+#
+# %% tags=["hide-input", "hide-output"]
 eog_names = ['VEOG', 'HEOG']
 eog_anodes = ['FP1', 'HEOG_right']
 eog_cathodes = ['VEOG_lower', 'HEOG_left']
@@ -70,29 +77,26 @@ raw = ica.apply(raw)
 
 raw = raw.set_eeg_reference('average')
 
+# %% [markdown]
+# This gives us the cleaned, continuous EEG data as a `Raw` object.
+#
 # %%
 raw
 
 # %% [markdown]
-# ## Load Python modules
-#
-# As before, we'll make extensive use of [MNE-Python](https://mne.tools/stable/index.html) {cite:p}`gramfort2013`.
-#
-# %%
-from mne import Epochs, events_from_annotations
-
-# %% [markdown]
 # ## Extract events
 #
-# We can extract the events that are stored with raw data using the `events_from_annotations()` function.
-# This functions returns two outputs:
-#
-# * `events`: a Numpy array with three columns: the sample number (timepoint) of each event, the duration of the event, and the event code (here indicating the specific face or car stimulus)
-# * `event_id`: a dictionary mapping the event codes to human-readable names
+# We can extract the event codes that are stored within the raw data using the `events_from_annotations()` function.
 #
 # %%
 events, event_id = events_from_annotations(raw)
 
+# %% [markdown]
+# This functions returns two outputs:
+#
+# * `events` is a Numpy array with three columns: the sample number (timepoint) of each event, the duration of the event, and the event code (here indicating the specific face or car stimulus)
+# * `event_id`: a dictionary mapping the event codes to human-readable names
+#
 # %%
 events
 
@@ -100,30 +104,34 @@ events
 event_id
 
 # %% [markdown]
-# As we can see, this `event_id` dictionary is currently not very informative, as it only repeats the numerical event codes.
-# We can check the `task-N170_events.json` file that accompanies the dataset to see what these codes mean:
+# We can see that there are many different numerical event codes without any obvious meaning.
+# We can check what these codes stand for by looking at the `task-N170_events.json` file that accompanies the dataset:
 #
 # %%
 # %cat data/erpcore/N170/task-N170_events.json
 
 # %% [markdown]
 # We see that triggers 1--40 correspond to face stimuli, and triggers 41--80 correspond to car stimuli.
-# Let's construct a new `event_id` dictionary that uses these labels in addition to the numerical codes:
+# To make our epoching job easier, we'll collapse these 80 original event codes into just two event codes: `1` for faces and `2` for cars, using MNE's `merge_events()` function.
 #
-# %% tags=["output_scroll"]
-event_id = {}
-for trigger in range(1, 81):
-    if trigger <= 40:
-        event_id[f'face/{trigger}'] = trigger
-    else:
-        event_id[f'car/{trigger}'] = trigger
+# %%
+events = merge_events(events, ids=range(1, 41), new_id=1)
+events = merge_events(events, ids=range(41, 81), new_id=2)
+events
 
-event_id
+# %% [markdown]
+# Note that `range()` is a built-in Python function that generates a sequence of numbers (integers) between a start and end value.
+# For example, `range(1, 41)` generates the sequence 1, 2, ..., 40 (the end value is not included).
+#
+# We also need to update the `event_id` dictionary accordingly, mapping the new event codes to human-readable condition labels.
+#
+# %%
+event_id = {'face': 1, 'car': 2}
 
 # %% [markdown]
 # ## Epoching
 #
-# No we're ready to segment our raw data into epochs, using the `events` and `event_id` that we just extracted.
+# No we're ready to segment our raw data into epochs, using the `events` and `event_id` that we just created.
 # We'll use a time window of 1 s, starting 200 ms before the event onset.
 #
 # For now, we'll skip baseline correction (this would be enabled by default) because we want to show the effect of baseline correction later.
@@ -135,16 +143,18 @@ epochs = Epochs(raw, events, event_id, tmin=-0.2, tmax=0.8, baseline=None)
 epochs.get_data().shape
 
 # %% [markdown]
-# We see that the dimensions have changed from EEG channels × timepoints to epochs × EEG channels × timepoints.
+# We see that the dimensions have changed, from EEG channels × timepoints (`raw`) to epochs × EEG channels × timepoints (`epochs`).
 #
-# Just as the `Raw` object the epochs also have a `plot()` method to visualize the data.
+# Just as the raw data, the epochs also have a `plot()` method to visualize the data.
 #
 # %%
 _ = epochs.plot(events=True)
 
 # %% [markdown]
-# Another effective way of visualizing *all* epochs in the dataset is the so-called "ERP image" plot.
+# Another effective way of visualizing *all* epochs in the dataset is the so-called **ERP image** plot.
 # This is a heatmap with time on the x-axis, epochs on the y-axis, and the EEG amplitude represented by color.
+#
+# We'll create this plot for a single EEG channel (`'PO8'`) that is typically sensitive to the N170 face effect.
 #
 # %%
 _ = epochs.plot_image(picks='PO8')
@@ -158,7 +168,8 @@ _ = epochs.plot_image(picks='PO8')
 # Some of the epochs have a large offset (vertical shift) compared to the other epochs, which can happen due to technical or physiological drifts at some channels.
 #
 # We can remove these offsets by applying a baseline correction.
-# This works by, separately for each channel, subtracting the mean of the baseline activity (200 ms to 0 ms before the event) from each timepoint in the epoch.
+# This works by, separately for each channel, subtracting the mean of the baseline activity from each timepoint in the epoch.
+# The baseline activity is typically defined as the 200 ms prior to the event onset.
 #
 # %%
 epochs = epochs.apply_baseline((-0.2, 0.0))
@@ -169,8 +180,8 @@ _ = epochs.plot(events=True)
 #
 # Despite all our data cleaning efforts (filtering, ICA, referencing, baseline correction), some epochs will still contain large-amplitude artifacts, e.g., due to movements or technical glitches.
 #
-# We can "reject" (delete) these epochs from the data by using the `drop_bad()` method (or, alternatively, the `reject` argument of the `Epochs` constructor).
-# We can specify a peak-to-peak-threshold (in volts).
+# We can "reject" (delete) these epochs from the data by using the `drop_bad()` method (or, alternatively, the `reject=...` argument of the `Epochs` constructor).
+# This allows us to specify a peak-to-peak-threshold (in volts).
 # If, at any channel, the difference between the minimum and maximum amplitude in an epoch exceeds this threshold, the epoch will be rejected (deleted).
 #
 # Depending on how clean the dataset is, this threshold will typically be between 50 and 200 µV.
@@ -179,13 +190,16 @@ _ = epochs.plot(events=True)
 # %%
 epochs = epochs.drop_bad({'eeg': 100e-6})
 
+# %% [markdown]
+# We see that the ERP image now has a reduced number of epochs (rows), but the color patterns are much clearer (as some large-amplitude epochs have been removed):
+
 # %%
 _ = epochs.plot_image(picks='PO8')
 
 # %% [markdown]
 # ## Further reading
 #
-# * Chapter [*Segmentation into ERP epochs*](https://neuraldatascience.io/7-eeg/erp_segmentation.html) in *Neural Data Science in Python* by Aaron J. Newman et al. (2020--2023)
+# * Online chapter [*Segmentation into ERP epochs*](https://neuraldatascience.io/7-eeg/erp_segmentation.html) in {cite:t}`newman2020`
 # * Tutorial on epochs on the [MNE-Python website](https://mne.tools/stable/auto_tutorials/epochs/10_epochs_overview.html)
 #
 # %% [markdown]
