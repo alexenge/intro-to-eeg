@@ -5,7 +5,7 @@
 # It usually involves a series of steps aimed at removing non-brain-related noise and artifacts from the data.
 # Unlike the following steps (e.g., epoching and averaging), it leaves the data in a continuous format (EEG channels × timepoints).
 #
-# ```{admonition} Learning goals
+# ```{admonition} Goals
 # :class: note
 #
 # * Loading raw EEG data

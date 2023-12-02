@@ -7,7 +7,7 @@
 #
 # This first section of the course will provide a very brief introduction into the Python language.
 #
-# ```{admonition} Learning goals
+# ```{admonition} Goals
 # :class: note
 #
 # * Using Python as a calculator

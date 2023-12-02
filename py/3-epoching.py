@@ -14,7 +14,7 @@
 # Source: {cite:t}`luck2022a`
 # :::
 #
-# ```{admonition} Learning goals
+# ```{admonition} Goals
 # :class: note
 #
 # * Extracting event information from the data
