@@ -197,6 +197,20 @@ epochs = epochs.drop_bad({'eeg': 100e-6})
 _ = epochs.plot_image(picks='PO8')
 
 # %% [markdown]
+# ## Exercises
+#
+# 1. Repeat the preprocessing (first code cell) for a different ERP CORE experiment (valid experiment names are `'N170'`, `'MMN'`, `'N2pc'`, `'N400'`, `'P3'`, or `'ERN'`).
+#    Then check the `task-<experiment>_events.json` file and construct the correct `events` and `event_id` variables.
+#    Finally, create epochs from the data and plot the ERP image for a channel that is typically sensitive to the effect of interest (check {cite:t}`kappenman2021`, Table 1, for a suggestion).
+#
+# %%  tags=["skip-execution"]
+# %cat data/erpcore/.../task-..._events.json
+
+# %%  tags=["skip-execution"]
+# Your code goes here
+...
+
+# %% [markdown]
 # ## Further reading
 #
 # * Online chapter [*Segmentation into ERP epochs*](https://neuraldatascience.io/7-eeg/erp_segmentation.html) in {cite:t}`newman2020`

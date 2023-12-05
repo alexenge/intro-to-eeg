@@ -146,7 +146,7 @@ _ = raw.plot(start=60.0, duration=5.0)
 # ## Correct eye artifacts
 #
 # Eye blinks and eye movements are the most prominent source of artifacts in EEG data.
-# They are approximately 10 times larger than the brain signals we are interested in and affect especially the frontal electrodes.
+# They are approximately 10 times larger than the brain signals we are interested in and affect especially frontal electrodes.
 #
 # There are multiple ways to remove eye artifacts from EEG data.
 # The most common one is a machine learning technique called **independent component analysis (ICA)**.
@@ -213,7 +213,9 @@ _ = raw.plot(start=60.0, duration=5.0)
 # ## Further reading
 #
 # * Tutorials on preprocessing on the [MNE-Python website](https://mne.tools/stable/auto_tutorials/preprocessing/index.html)
-# * Blog post on [*Pitfalls of filtering the EEG signal*](https://sapienlabs.org/lab-talk/pitfalls-of-filtering-the-eeg-signal/) by Narayan P. Subramaniyam
+# * Blog post [*Pitfalls of filtering the EEG signal*](https://sapienlabs.org/lab-talk/pitfalls-of-filtering-the-eeg-signal/) by Narayan P. Subramaniyam
+# * Blog post [*Introduction to ICA: Independent Component Analysis*](https://towardsdatascience.com/introduction-to-ica-independent-component-analysis-b2c3c4720cd9) by Jonas Dieckmann
+# * Online chapter [*A closer look at ICA-based artifact correction*](http://mitp-content-server.mit.edu:18180/books/content/sectbyfn?collid=books_pres_0&id=8575&fn=8575_006a_0.pdf) in {cite:t}`luck2014a`
 # * Paper *EEG is better left alone* {cite:p}`delorme2023`
 #
 # %% [markdown]

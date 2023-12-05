@@ -168,6 +168,16 @@ _ = evokeds_diff.plot_topomap(times=[0.17])
 _ = evokeds_diff.plot_joint(times=[0.0, 0.17, 0.3])
 
 # %% [markdown]
+# ## Exercises
+#
+# 1. Repeat the preprocessing and epoching (first code cell) for a different ERP CORE experiment (valid experiment names are `'N170'`, `'MMN'`, `'N2pc'`, `'N400'`, `'P3'`, or `'ERN'`).
+#    Create evokeds for the two conditions in your experiment and visualize them using time course and scalp topography plots.
+#
+# %%  tags=["skip-execution"]
+# Your code goes here
+...
+
+# %% [markdown]
 # ## Further reading
 #
 # * Tutorial on evokeds on the [MNE-Python website](https://mne.tools/stable/auto_tutorials/evoked/10_evoked_overview.html)
