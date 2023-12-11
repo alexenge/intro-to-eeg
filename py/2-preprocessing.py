@@ -32,7 +32,6 @@
 from mne import set_bipolar_reference
 from mne.io import read_raw
 from mne.preprocessing import ICA
-from mne.viz import set_browser_backend
 from pipeline.datasets import get_erpcore
 
 # %% [markdown]
