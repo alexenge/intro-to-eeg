@@ -156,7 +156,7 @@ _ = evokeds_diff.plot()
 # %%
 _ = evokeds_diff.plot_topomap(times=[0.17])
 
-# %%
+# %% [markdown]
 # The `Evoked` object even has a method to plot the time course (butterfly) plot and a few scalp topographies at the same time:
 #
 # %%
