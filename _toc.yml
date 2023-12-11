@@ -11,3 +11,4 @@ parts:
       - file: ipynb/2-preprocessing
       - file: ipynb/3-epoching
       - file: ipynb/4-averaging
+      - file: ipynb/5-pipeline
