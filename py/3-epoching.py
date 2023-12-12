@@ -29,9 +29,10 @@
 # ## Load Python modules
 #
 # As before, we'll make extensive use of the [MNE-Python](https://mne.tools/stable/index.html) package{cite:p}`gramfort2013`.
+# We'll also use a new package called [pandas](https://pandas.pydata.org) (more on that below).
 #
 # %%
-# # %pip install mne hu-neuro-pipeline
+# # %pip install mne hu-neuro-pipeline pandas
 
 # %%
 import pandas as pd
@@ -107,7 +108,7 @@ event_id
 # %cat data/erpcore/N170/sub-004/eeg/sub-004_task-N170_events.tsv
 
 # %% [markdown]
-# We can read this file using the pandas package, which offers a `DataFrame` type for working tabular data (similar to a `data.frame` or `tibble` in R).
+# We can read this file using the [pandas](https://pandas.pydata.org) package, which offers a `DataFrame` type for working tabular data (similar to a `data.frame` or `tibble` in R).
 #
 # %%
 log_file = files_dict['log_files'][0]

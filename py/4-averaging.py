@@ -27,10 +27,10 @@
 # %% [markdown]
 # ## Load Python packages
 #
-# As always, all the functions we'll need are provided by the [MNE-Python](https://mne.tools/stable/index.html) package {cite:p}`gramfort2013`.
+# As before, all the functions we'll need are provided by the [MNE-Python](https://mne.tools/stable/index.html) {cite:p}`gramfort2013` and [pandas](https://pandas.pydata.org) packages.
 #
 # %%
-# # %pip install mne hu-neuro-pipeline
+# # %pip install mne hu-neuro-pipeline pandas
 
 # %%
 import pandas as pd
@@ -78,7 +78,7 @@ events = merge_events(events, ids=range(41, 81), new_id=2)
 event_id = {'face': 1, 'car': 2}
 epochs = Epochs(raw, events, event_id, tmin=-0.2, tmax=0.8,
                 baseline=(-0.2, 0.0), preload=True)
-epochs = epochs.drop_bad({'eeg': 200e-6})
+epochs = epochs.drop_bad({'eeg': 100e-6})
 
 # %% [markdown]
 # This gives us the cleaned, epoched data as an `Epochs` object.
