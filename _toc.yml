@@ -12,3 +12,4 @@ parts:
       - file: ipynb/3-epoching
       - file: ipynb/4-averaging
       - file: ipynb/5-pipeline
+      - file: ipynb/6-statistics
