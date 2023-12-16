@@ -1,9 +1,0 @@
-docutils==0.17.1
-hu-neuro-pipeline
-jupyter-book
-jupytext
-matplotlib
-mne
-pybtex-apa-style
-seaborn
-sphinxcontrib-apa

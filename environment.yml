@@ -1,0 +1,23 @@
+name: intro-to-eeg
+channels:
+  - conda-forge
+dependencies:
+  - docutils=0.17.1
+  - jupyter-book
+  - jupytext
+  - matplotlib
+  - mne
+  - numpy
+  - pandas
+  - pip
+  - python=3.11
+  - r-base
+  - r-ez
+  - r-lmertest
+  - r-matrix=1.6_2
+  - rpy2
+  - seaborn
+  - pip:
+      - hu-neuro-pipeline
+      - pybtex-apa-style
+      - sphinxcontrib-apa
