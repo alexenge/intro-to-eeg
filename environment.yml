@@ -6,7 +6,7 @@ dependencies:
   - jupyter-book
   - jupytext
   - matplotlib
-  - mne
+  - mne-base
   - numpy
   - pandas
   - pip
