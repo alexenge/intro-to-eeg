@@ -34,10 +34,6 @@ jobs:
         with:
           environment-file: environment.yml
 
-      - name: Install Python packages
-        run: |
-          pip install -r requirements.txt
-
       - name: Convert Python scripts to notebooks
         run: |
           mkdir -p ipynb
