@@ -17,6 +17,11 @@ concurrency:
   group: "pages"
   cancel-in-progress: false
 
+# Use login shell to ensure the Micromamba/conda environment is activated
+defaults:
+  run:
+    shell: bash -leo pipefail {0} {0}
+
 jobs:
   deploy-book:
     runs-on: ubuntu-latest
