@@ -79,6 +79,7 @@ raw = raw.set_eeg_reference('average')
 raw
 
 # %% [markdown]
+# (events)=
 # ## Extract events
 #
 # We can extract the event codes that are stored within the raw data using the `events_from_annotations()` function.

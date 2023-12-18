@@ -2,22 +2,22 @@
 # # Statistics
 #
 # In the previous chapters, we already got an idea about the differences in EEG activity between our conditions of interest (e.g., faces versus cars), as shown in the time course and scalp topography plots.
-# However, we have to model the data statistically to be able to quantify the size of this difference and if it is statistically significant (i.e., not due to chance).
+# However, we have to model the data statistically to be able to quantify the size of this difference and test if it is statistically significant (i.e., not due to chance).
+# In this chapter, we will encounter different **statistical tests** that can be used to do this.
 #
-# In this chapter, we will encounter different statistical tests that can be used to test hypotheses about the data.
-# While the EEG processing is done in Python as before, we will use the R programming language for statistical modeling because it has a larger number of statistical functions and packages, and is widely used in the psychological science community.
+# While the EEG processing is done in Python as before, we will use the **[R](https://www.r-project.org) programming language** for statistical modeling because it has a larger number of statistical functions and packages, and because it is widely used in the psychological science community.
 #
 # ```{admonition} Goals
 # :class: note
 #
-# * Apply "classical" models based on averaged data (e.g., $t$-tests, ANOVA)
-# * Apply linear mixed-effects models to the single trial data
+# * Test for condition differences using "classical" models based on averaged data (e.g., $t$-tests, ANOVA)
+# * Do the same by applying linear mixed models to the single trial data
 # ```
 #
 # %% [markdown]
 # ## Load Python packages
 #
-# We'll use the hu-neuro-pipeline package introduced in Chapter 5 (Pipeline) for EEG processing, and Numpy and seaborn for post-processing and plotting.
+# We'll use the hu-neuro-pipeline package (introduced in Chapter 5) for EEG processing, and Numpy and seaborn for post-processing and plotting.
 # As mentioned before, the actual statistical modeling will be done in R, but there are also Python packages for this (e.g., [statsmodels](https://www.statsmodels.org/stable/index.html)).
 #
 # %%
@@ -27,9 +27,9 @@ from pipeline import group_pipeline
 from pipeline.datasets import get_erpcore
 
 # %% [markdown]
-# ## EEG processing pipeline
+# ## Re-run the pipeline
 #
-# We use the same processing pipeline as introduced in Chapter 5 (Pipeline), giving us the single trial data and the average time courses.
+# We use the same processing pipeline as introduced in the {ref}`pipeline` section of the previous chapter, giving us the single trial data and the average time courses.
 #
 # %% tags=["output_scroll"]
 files_dict = get_erpcore('N170', participants=10, path='data')
@@ -52,14 +52,14 @@ trials, evokeds, config = group_pipeline(raw_files=files_dict['raw_files'],
 # %% [markdown]
 # ## Single trial data
 #
-# The main output of the hu-neuro-pipeline package is the single trial data frame, which contains the EEG data for each trial, averaged across an *a priori* hypothesized time window and electrode(s) of interest (see the `components` argument above).
+# The main output of the hu-neuro-pipeline package is the **single trial data frame**, which contains the EEG data for each trial, averaged across an *a priori* hypothesized time window and electrode(s) of interest (see the `components` argument above).
 #
 # %%
 trials
 
 # %% [markdown]
 # Using a combination of pandas and Numpy, we'll create a new column in the data frame with verbal labels for our two conditions of interest (faces and cars).
-# This is based on the numerical event codes (stored in the `value` column), the meaning of which was described in Chapter 3 (Epoching).
+# This is based on the numerical event codes (stored in the `value` column), the meaning of which was described in the {ref}`events` section of the Epoching chapter.
 #
 # %%
 trials['condition'] = np.where(trials['value'] <= 40, 'face', 'car')
@@ -77,6 +77,7 @@ _ = sns.violinplot(data=trials, y='N170', hue='condition',
 # ## Linear models
 #
 # The "traditional" way for statistical analysis of ERPs is to (a) average the data across trials for each participant and condition, and (b) apply a statistical test to the averaged data.
+#
 # Let's start with the first step.
 # The pandas package has the necessary methods to group the data by participant and condition (`groupby()` method), and compute the average N170 amplitude across trials for each grouping (`mean()` method).
 #
@@ -102,11 +103,12 @@ trials_ave = trials[['participant_id', 'condition', 'N170']].\
 #
 # %%
 # %%R -i trials_ave
+
 t.test(N170 ~ condition, data = trials_ave, paired=TRUE)
 
 # %% [markdown]
 # We see that in this sample, the amplitude in response to faces is approximately 2.5 µV lower (more negative) than in response to cars, as would be expected for the N170 component.
-# This difference is statistically significant with $t(9) = -6.6$, $p \approx .0001$.
+# This difference is statistically significant with $t(9) = -6.56$, $p \approx .0001$.
 #
 # Note that we could have gotten the same result by applying a one sample $t$-test to the difference scores:
 #
@@ -118,6 +120,7 @@ trials_ave_wide
 
 # %%
 # %%R -i trials_ave_wide
+
 t.test(trials_ave_wide$diff)
 
 # %% [markdown]
@@ -136,7 +139,22 @@ ez::ezANOVA(
 )
 
 # %% [markdown]
-# ## Linear mixed-effects models
+# ## Linear mixed models
+#
+# The above approach of running a repeated measures linear model (ANOVA or $t$-test) on the averaged data is the "traditional" way of analyzing ERPs and still widely used.
+# However, it comes with a number of drawbacks:
+#
+# * The averaging step discards a lot of information
+# * We often don't just have repeated measures of the same participants, but also of the same items (again violating the independence assumption) {cite:p}`judd2012,burki2018`
+# * We cannot include any information about specific trials or stimuli in the model
+# * We cannot include any continuous predictor variables in the model
+# * These models assume the same noise level (i.e., number of averaged trials) for all participants and conditions
+#
+# A more flexible approach that can solve all of these problems (and more!) is to use linear-mixed effects models (LMMs) {cite:p}`fromer2018,volpert-esmond2021`.
+# These models predict the single trial amplitudes directly and accounts for repeated measures of participants and/or items by including random effects for these factors.
+# They can also include continuous predictor variables at the participant and trial level, and they do not required a balanced design (i.e., the same number of trials for each participant and condition).
+#
+# In R, we can use the [lme4](https://github.com/lme4/lme4) package to fit LMMs {cite:p}`bates2015`.
 #
 # %%
 # %%R -i trials
@@ -146,6 +164,16 @@ ez::ezANOVA(
 mod <- lme4::lmer(N170 ~ 1 + condition + (1 | participant_id), trials)
 summary(mod)
 
+# %% [markdown]
+# In this model, we're predicting the single trial N170 amplitude (`N170`) from a categorical predictor variable (`condition`) and an intercept (`1`) as fixed effects.
+# We also specify a random intercept for the participant factor (`(1 | participant_id)`), which accounts for differences in the (average) voltage level between participants.
+# Note that we could (and should) also include a random slope for the condition factor (`(1 + condition | participant_id)`), as well as a random intercept for the item factor (`(1 | value)`).
+# However, in this example case with only 10 participants, this model would be overly complex and likely fail to converge.
+#
+# In the above output, you will not any find any $p$-values to decide if the fixed effects are statistically significant.
+# If and how best to compute $p$-values for LMMs is still a matter of debate, but one common solution is a fancy method called the Satterthwaite approximation.
+# This is implemented in the [lmerTest](https://github.com/runehaubo/lmerTestR) package {cite:p}`kuznetsova2017`, which has a drop-in replacement for the `lmer()` function *with* $p$-values:
+
 # %%
 # %%R -i trials
 
@@ -153,3 +181,37 @@ summary(mod)
 
 mod <- lmerTest::lmer(N170 ~ 1 + condition + (1 | participant_id), trials)
 summary(mod)
+
+# %% [markdown]
+# We see that there is a highly (statistically) significant reduction of N170 voltages for faces compared to cars, but also that the estimates and $p$-values are slightly different compared to the previous models (based on the averaged data, with all the drawbacks mentioned above).
+#
+# Note that there are other methods for statistical analysis of ERP data, such as **cluster-based permutation tests** (CBPTs) {cite:p}`maris2007,sassenhagen2019`.
+# These do not require a strict a priori hypothesis about the time window and channel(s) of interest and are therefore especially useful for exploratory analyses.
+# A tutorial for how to compute CBPTs in the MNE-Python and hu-neuro-pipeline packages will be included as a bonus chapter in the future.
+#
+# %% [markdown]
+# ## Exercises
+#
+# 1. Re-run the analysis pipeline for 10 participants from a different ERP CORE experiment (valid experiment names are `'N170'`, `'MMN'`, `'N2pc'`, `'N400'`, `'P3'`, or `'ERN'`) and fit a $t$-test to the average amplitudes of the relevant component.
+# 2. Repeat the same analysis but with the single trial data and a linear mixed model.
+#    Try to see if you can include random intercepts and slopes for participants, and random intercepts or slopes for items (if appropriate).
+#    Simplify the random effects in case the model fails to converge, and try to interpret the fixed effect estimates and $p$-values.
+#
+# %%  tags=["skip-execution"]
+# Your code goes here
+...
+
+# %% [markdown]
+# ## Further reading
+#
+# * Paper *Group-level EEG-processing pipeline for flexible single trial-based analyses including linear mixed models* {cite:p}`fromer2018`
+# * Chapter *Principles of statistical analyses: Old and new tools* {cite:p}`kretzschmar2023`
+# * [Blog post](https://benediktehinger.de/blog/science/lmm-type-1-error-for-1condition1subject/) by Benedikt Ehinger on why to (almost) always include random slopes in LMMs
+#
+# %% [markdown]
+# ## References
+#
+# ```{bibliography}
+# :filter: docname in docnames
+# ```
+#

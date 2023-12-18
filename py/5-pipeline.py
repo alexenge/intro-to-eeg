@@ -132,6 +132,7 @@ _ = grand_evoked_diff.plot(picks='PO8')
 _ = grand_evoked_diff.plot_joint(times=[0.0, 0.15, 0.17])
 
 # %% [markdown]
+# (pipeline)=
 # ## Neuro Lab pipeline
 #
 # At the [Abdel Rahman Lab for Neurocognitive Psychology](https://abdelrahmanlab.com) at HU Berlin (the "Neuro Lab," for short), we've developed a Python package that provides a fully automated EEG processing pipeline.
