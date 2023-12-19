@@ -20,7 +20,7 @@
 # ## Load Python packages
 #
 # The functions for our custom pipeline are again provided by the [MNE-Python](https://mne.tools/stable/index.html) package {cite:p}`gramfort2013` and [pandas](https://pandas.pydata.org).
-# We will also use the [hu-neuro-pipeline](https://hu-neuro-pipeline.readthedocs.io] package for the fully automated pipeline, plus two new packages ([matplotlib](https://matplotlib.org) and [seaborn](https://seaborn.pydata.org)) for visualization.
+# We will also use the [hu-neuro-pipeline](https://hu-neuro-pipeline.readthedocs.io) package for the fully automated pipeline, plus two new packages ([matplotlib](https://matplotlib.org) and [seaborn](https://seaborn.pydata.org)) for visualization.
 #
 # %%
 # # %pip install mne hu-neuro-pipeline pandas matplotlib seaborn

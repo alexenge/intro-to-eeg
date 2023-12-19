@@ -21,6 +21,9 @@
 # As mentioned before, the actual statistical modeling will be done in R, but there are also Python packages for this (e.g., [statsmodels](https://www.statsmodels.org/stable/index.html)).
 #
 # %%
+# # %pip install numpy seaborn hu-neuro-pipeline
+
+# %%
 import numpy as np
 import seaborn as sns
 from pipeline import group_pipeline
