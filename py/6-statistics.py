@@ -52,7 +52,7 @@ trials, evokeds, config = group_pipeline(raw_files=files_dict['raw_files'],
 # %% [markdown]
 # ## Single trial data
 #
-# The main output of the hu-neuro-pipeline package is the **single trial data frame**, which contains the EEG data for each trial, averaged across an *a priori* hypothesized time window and electrode(s) of interest (see the `components` argument above).
+# The main output of the hu-neuro-pipeline package is the **single trial data frame**, which contains the EEG data for each trial (column `N170`), averaged across an *a priori* hypothesized time window and electrode(s) of interest (see the `components` argument above).
 #
 # %%
 trials
@@ -99,18 +99,18 @@ trials_ave = trials[['participant_id', 'condition', 'N170']].\
 #
 # Luckily, there are statistical tests that can handle repeated measures data, such as the paired $t$-test or repeated measures ANOVA.
 #
-# Let's start with the paired $t$-test:
+# Let's start with the **paired $t$-test**:
 #
 # %%
 # %%R -i trials_ave
 
-t.test(N170 ~ condition, data = trials_ave, paired=TRUE)
+t.test(N170 ~ condition, data = trials_ave, paired = TRUE)
 
 # %% [markdown]
-# We see that in this sample, the amplitude in response to faces is approximately 2.5 µV lower (more negative) than in response to cars, as would be expected for the N170 component.
+# We see that in this sample, the amplitude in response to faces is approximately 2.51 µV lower (more negative) than in response to cars, as would be expected for the N170 component.
 # This difference is statistically significant with $t(9) = -6.56$, $p \approx .0001$.
 #
-# Note that we could have gotten the same result by applying a one sample $t$-test to the difference scores:
+# Note that we could have gotten the same result by applying a **one sample $t$-test** to the difference scores:
 #
 # %%
 trials_ave_wide = trials_ave.pivot(index='participant_id', columns='condition', 
@@ -124,7 +124,7 @@ trials_ave_wide
 t.test(trials_ave_wide$diff)
 
 # %% [markdown]
-# Or by running a repeated measures ANOVA with a single (two-level) factor:
+# Or by running a **repeated measures ANOVA** with a single (two-level, within-participant) factor:
 
 # %%
 # %%R -i trials_ave
@@ -150,11 +150,11 @@ ez::ezANOVA(
 # * We cannot include any continuous predictor variables in the model
 # * These models assume the same noise level (i.e., number of averaged trials) for all participants and conditions
 #
-# A more flexible approach that can solve all of these problems (and more!) is to use linear-mixed effects models (LMMs) {cite:p}`fromer2018,volpert-esmond2021`.
-# These models predict the single trial amplitudes directly and accounts for repeated measures of participants and/or items by including random effects for these factors.
+# A more flexible approach that can solve all of these problems (and more!) is to use a **linear-mixed effects model (LMM)** {cite:p}`fromer2018,volpert-esmond2021`.
+# This model predicts the single trial amplitudes directly and accounts for repeated measures of participants and/or items by including random effects for these factors.
 # They can also include continuous predictor variables at the participant and trial level, and they do not required a balanced design (i.e., the same number of trials for each participant and condition).
 #
-# In R, we can use the [lme4](https://github.com/lme4/lme4) package to fit LMMs {cite:p}`bates2015`.
+# In R, we can use the `lmer()` function from the [lme4](https://github.com/lme4/lme4) package to fit LMMs {cite:p}`bates2015`:
 #
 # %%
 # %%R -i trials
@@ -171,8 +171,8 @@ summary(mod)
 # However, in this example case with only 10 participants, this model would be overly complex and likely fail to converge.
 #
 # In the above output, you will not any find any $p$-values to decide if the fixed effects are statistically significant.
-# If and how best to compute $p$-values for LMMs is still a matter of debate, but one common solution is a fancy method called the Satterthwaite approximation.
-# This is implemented in the [lmerTest](https://github.com/runehaubo/lmerTestR) package {cite:p}`kuznetsova2017`, which has a drop-in replacement for the `lmer()` function *with* $p$-values:
+# If and how best to compute $p$-values for LMMs is still a matter of debate, but one common solution is a method called the Satterthwaite approximation.
+# This is implemented in the [lmerTest](https://github.com/runehaubo/lmerTestR) package {cite:p}`kuznetsova2017`, which has a drop-in replacement for the `lmer()` function but with $p$-values:
 
 # %%
 # %%R -i trials
@@ -183,16 +183,17 @@ mod <- lmerTest::lmer(N170 ~ 1 + condition + (1 | participant_id), trials)
 summary(mod)
 
 # %% [markdown]
-# We see that there is a highly (statistically) significant reduction of N170 voltages for faces compared to cars, but also that the estimates and $p$-values are slightly different compared to the previous models (based on the averaged data, with all the drawbacks mentioned above).
+# We see that there is a highly (statistically) significant reduction of N170 voltages for faces compared to cars, but also that the estimate and $p$-value are slightly different compared to the previous models (based on the averaged data, with all the drawbacks mentioned above).
 #
 # Note that there are other methods for statistical analysis of ERP data, such as **cluster-based permutation tests** (CBPTs) {cite:p}`maris2007,sassenhagen2019`.
-# These do not require a strict a priori hypothesis about the time window and channel(s) of interest and are therefore especially useful for exploratory analyses.
+# These do not require a strict *a priori* hypothesis about the time window and channel(s) of interest, and are therefore especially useful for exploratory analyses.
+#
 # A tutorial for how to compute CBPTs in the MNE-Python and hu-neuro-pipeline packages will be included as a bonus chapter in the future.
 #
 # %% [markdown]
 # ## Exercises
 #
-# 1. Re-run the analysis pipeline for 10 participants from a different ERP CORE experiment (valid experiment names are `'N170'`, `'MMN'`, `'N2pc'`, `'N400'`, `'P3'`, or `'ERN'`) and fit a $t$-test to the average amplitudes of the relevant component.
+# 1. Re-run the analysis pipeline for 10 participants from a different ERP CORE experiment (valid experiment names are `'N170'`, `'MMN'`, `'N2pc'`, `'N400'`, `'P3'`, or `'ERN'`), average the single trial amplitudes of the component of interest for each participant and condition, and fit a $t$-test to these averaged amplitudes.
 # 2. Repeat the same analysis but with the single trial data and a linear mixed model.
 #    Try to see if you can include random intercepts and slopes for participants, and random intercepts or slopes for items (if appropriate).
 #    Simplify the random effects in case the model fails to converge, and try to interpret the fixed effect estimates and $p$-values.
