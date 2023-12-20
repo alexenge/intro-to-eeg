@@ -37,6 +37,7 @@ from pipeline.datasets import get_erpcore
 # %% tags=["output_scroll"]
 files_dict = get_erpcore('N170', participants=10, path='data')
 
+## %% tags=["output_scroll"]
 trials, evokeds, config = group_pipeline(raw_files=files_dict['raw_files'],
                                          log_files=files_dict['log_files'],
                                          output_dir='output',
@@ -89,6 +90,7 @@ trials_ave = trials[['participant_id', 'condition', 'N170']].\
     groupby(['participant_id', 'condition']).\
     mean().\
     reset_index()
+trials_ave
 
 # %% [markdown]
 # Now we can pass the data frame to R and apply an appropriate statistical test.
